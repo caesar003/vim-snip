@@ -1,0 +1,8 @@
+try {
+    // Code that may throw an error
+} catch (error) {
+    console.error("Error:", error);
+} finally {
+    console.log("Cleanup or final operations.");
+}
+

@@ -2,7 +2,8 @@
 " Author: Caesar003
 " Email: caesarmuksid@gmail.com
 " Repo: https://github.com/caesar003/vim-snip
-" Last Modified: Sat Mar 01 2025, 09:30
+" Last Modified: Sat Mar 01 2025, 10:15
+
 "
 " Description:
 " Vim-Snip is a lightweight, minimal snippet manager for Vim/Neovim. 
@@ -16,15 +17,16 @@
 "
 " Usage:
 " - Insert a snippet using:
-"   :Snip <language> <snippet-name>
-"   Example: :Snip html boilerplate
+"   :Snip <snippet-name>             (uses current filetype)
+"   :Snip <language> <snippet-name>  (explicitly specify language)
+"   Example: :Snip boilerplate       (in an HTML file)
+"   Example: :Snip html boilerplate  (in any file)
 "
 " - Define key mappings for quick usage in insert mode:
-"   Example: inoremap !<Tab> :Snip html boilerplate<CR>
+"   Example: inoremap !<Tab> <Cmd>Snip boilerplate<CR>
 "
 " - Snippet files should be stored in:
 "   <plugin-root>/templates/<language>/<snippet>.txt
-"   Feel free to add your own!
 "
 " - Special markers in snippets:
 "   {cursor} - Where the cursor will be positioned after insertion
@@ -32,10 +34,55 @@
 "
 " ----------------------------------------------------------------------------
 
-function! s:InsertSnippet(type, name)
+function! s:GetFiletypeMapping(ft)
+    " Map Vim filetypes to template directory names
+    let l:ft_map = {
+        \ 'javascript': 'javascript',
+        \ 'javascriptreact': 'javascript',
+        \ 'typescript': 'javascript',
+        \ 'typescriptreact': 'javascript',
+        \ 'html': 'html',
+        \ 'css': 'css',
+        \ 'python': 'python',
+        \ 'go': 'go',
+        \ 'rust': 'rust',
+        \ 'php': 'php',
+        \ 'ruby': 'ruby',
+        \ 'sh': 'shell',
+        \ 'bash': 'shell',
+        \ 'zsh': 'shell'
+        \ }
+    
+    " Return mapped filetype or original if no mapping exists
+    return get(l:ft_map, a:ft, a:ft)
+endfunction
+
+function! s:InsertSnippet(...)
+    " Parse arguments and determine language/snippet
+    if a:0 == 1
+        " :Snip snippet-name - use current filetype as language
+        let l:ft = &filetype
+        let l:name = a:1
+        
+        " Map filetype to template directory if needed
+        let l:type = s:GetFiletypeMapping(l:ft)
+        
+        if empty(l:ft)
+            echohl WarningMsg | echo "No filetype detected. Use :Snip <language> <snippet-name> instead." | echohl None
+            return
+        endif
+    elseif a:0 == 2
+        " :Snip language snippet-name - explicit language
+        let l:type = a:1
+        let l:name = a:2
+    else
+        echohl WarningMsg | echo "Usage: :Snip [language] <snippet-name>" | echohl None
+        return
+    endif
+    
     " Determine the plugin's root directory dynamically
     let l:plugin_root = expand('<script>:p:h:h') 
-    let l:snippet_file = l:plugin_root . '/templates/' . a:type . '/' . a:name . '.txt'
+    let l:snippet_file = l:plugin_root . '/templates/' . l:type . '/' . l:name . '.txt'
     
     " Check if the snippet file exists and read its contents
     if filereadable(l:snippet_file)
@@ -216,5 +263,5 @@ function! s:CleanupPlaceholders()
     endif
 endfunction
 
-" Define a command to insert snippets
+" Define commands for inserting snippets
 command! -nargs=+ Snip call s:InsertSnippet(<f-args>)

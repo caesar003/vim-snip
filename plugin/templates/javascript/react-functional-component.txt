@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const sample = () => {
+export const {placeholder:ComponentName} = () => {
   return (
-    <div>sample</div>
+    <div>{cursor}</div>
   )
 }

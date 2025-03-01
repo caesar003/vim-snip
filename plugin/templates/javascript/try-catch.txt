@@ -1,5 +1,5 @@
 try {
-    // Code that may throw an error
+  {cursor}
 } catch (error) {
-    console.error("Error:", error);
+  console.error("{placeholder:Error}:", error);
 }

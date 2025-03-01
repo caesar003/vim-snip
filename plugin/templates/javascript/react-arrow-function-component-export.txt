@@ -1,9 +1,9 @@
 import React from 'react'
 
-const sample = () => {
+const {placeholder:ComponentName} = () => {
   return (
-    <div>sample</div>
+    <div>{cursor}</div>
   )
 }
 
-export default sample
+export default {placeholder:ComponentName};

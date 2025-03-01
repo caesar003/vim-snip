@@ -1,10 +1,11 @@
-switch (value) {
-    case 1:
-        console.log("One");
-        break;
-    case 2:
-        console.log("Two");
-        break;
-    default:
-        console.log("Default case");
+switch ({placeholder:value}) {
+  case {placeholder:1}:
+    {placeholder:console.log("One");}
+    break;
+  case {placeholder:2}:
+    {placeholder:console.log("Two");}
+    break;
+  default:
+    {placeholder:console.log("Default case");}
+    {cursor}
 }

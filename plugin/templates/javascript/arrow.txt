@@ -1,1 +1,1 @@
-const add = (a, b) => a + b;
+const {placeholder:functionName} = ({placeholder:a}, {placeholder:b}) => {placeholder:a + b}{cursor};

@@ -1,9 +1,11 @@
 import React from 'react'
 
-function sample() {
+function {placeholder:ComponentName}() {
   return (
-    <div>sample</div>
+    <div>
+      {cursor}
+    </div>
   )
 }
 
-export default sample
+export default {placeholder:ComponentName};

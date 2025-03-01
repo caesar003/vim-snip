@@ -1,1 +1,1 @@
-const [state, setState] = useState();
+const [{placeholder:state}, {placeholder:setState}] = useState({placeholder:initialValue});{cursor}

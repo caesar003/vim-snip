@@ -1,2 +1,3 @@
-<img src="image.jpg" alt="Description">
+<img src="{placeholder:image.jpg}" alt="{placeholder:Image description}" {placeholder:width="300" height="200"}>
+{cursor}
 

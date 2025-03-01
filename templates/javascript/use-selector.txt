@@ -1,1 +1,1 @@
-const {placeholder:selectedData} = useSelector((state) => state.{placeholder:slice}{cursor});
+const {placeholder:selectedData} = useSelector((state) => state.{placeholder:slice};

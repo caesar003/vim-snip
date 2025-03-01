@@ -1,4 +1,4 @@
-switch ({placeholder:value}) {
+switch ({placeholder:Expression}) {
   case {placeholder:1}:
     {placeholder:console.log("One");}
     break;
